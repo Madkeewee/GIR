@@ -1,0 +1,15 @@
+.bgb-page{--bg:#1b1510;--panel:#2b2118;--line:#5d4834;--text:#fbefdc;--muted:#d2bda0;--accent:#efbe62;background:radial-gradient(ellipse at top,#48311d 0,transparent 45rem),var(--bg)}
+.bgb-page .top{background:#241a13}
+.bgb-page .wrap{width:min(1120px,calc(100% - 32px))}
+.bgb-page #bgb{margin-top:0}
+.bgb-page .bgb-banner{height:auto;aspect-ratio:3/1}
+.bgb-page .bgb-guide{padding:12px 16px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.roster-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
+.roster-actions select{padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--text);font:inherit}
+.roster-actions button,.roster-controls button{background:transparent;color:var(--accent);font-size:.85rem;padding:5px 8px}
+.roster-row{border:1px solid var(--line);border-radius:5px;padding:8px}
+.roster-controls{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.roster-controls label{display:flex;align-items:center;gap:6px}
+.roster-controls input{width:auto;accent-color:var(--accent)}
+.bgb #roster-storage-status:empty{display:none}
+

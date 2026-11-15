@@ -1,0 +1,80 @@
+:is(.grim-home, .grim-site) {
+  --bg: #0b100b;
+  --panel: #131e12;
+  --line: #405134;
+  --accent: #edcb76;
+}
+
+:is(.grim-home, .grim-site) .top { background: #0b130e; border-color: #755f34; }
+.grim-home .wrap { width: min(1500px, calc(100% - 40px)); }
+.grim-home .alliance-banner {
+  min-height: clamp(490px, 56vw, 760px);
+  aspect-ratio: auto;
+  align-items: center;
+  background: #101810 url("./grim-command-hero.jpg") right 20% / cover no-repeat;
+  border-color: #755f34;
+}
+
+.grim-home .alliance-banner::before {
+  background: linear-gradient(90deg, #070c08f5 0%, #0a110ad9 33%, #0a110a24 70%, transparent);
+}
+
+.grim-home .alliance-banner-copy { width: min(57%, 740px); max-width: none; }
+[dir="rtl"] .grim-home .alliance-banner-copy { justify-self: end; }
+.grim-home .page-title { font-size: clamp(2.5rem, 5vw, 5.5rem); }
+.grim-home .home-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grim-home .home-links a {
+  color: var(--text);
+  background: #121e12e8;
+  border-color: #9a8045;
+}
+.grim-home .home-links a:hover { background: #23351c; border-color: var(--accent); }
+.grim-home .home-links strong { color: var(--accent); }
+.grim-home .alliance-panel { border-color: #755f34; }
+
+.coral-siege { display: none; }
+
+@media (min-width: 1260px) and (min-aspect-ratio: 6/5) {
+  :is(.grim-home, .grim-site) { --grim-frame: clamp(870px, 63vw, 1800px); isolation: isolate; }
+  :is(.grim-home, .grim-site) .wrap { width: var(--grim-frame); }
+  .coral-siege {
+    display: block;
+    position: fixed;
+    inset: 68px 0 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .coral-siege span {
+    position: absolute;
+    inset-block: 0;
+    width: calc((100% - var(--grim-frame)) / 2 - 8px);
+    background: center / cover no-repeat;
+  }
+  .coral-siege-left {
+    left: 0;
+    background-image: url("./coral-siege-left.jpg");
+    mask-image: linear-gradient(to right, #000 87%, transparent);
+  }
+  .coral-siege-right {
+    right: 0;
+    background-image: url("./coral-siege-right.jpg");
+    mask-image: linear-gradient(to left, #000 87%, transparent);
+  }
+}
+
+@media (max-width: 760px) {
+  .grim-home .alliance-banner {
+    align-items: end;
+    min-height: 560px;
+    background-position: right top;
+  }
+  .grim-home .alliance-banner::before {
+    background: linear-gradient(0deg, #070c08fc 0%, #0a110ae8 40%, transparent 82%);
+  }
+  .grim-home .alliance-banner-copy { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .grim-home .wrap { width: calc(100% - 28px); }
+  .grim-home .home-links a { padding: 10px; }
+}
