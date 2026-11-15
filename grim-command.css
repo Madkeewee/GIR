@@ -53,7 +53,9 @@
     position: absolute;
     inset-block: 0;
     width: calc((100% - var(--grim-frame)) / 2 - 8px);
-    background: center top / cover no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .coral-siege-left {
     left: 0;
