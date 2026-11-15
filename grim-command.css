@@ -34,9 +34,14 @@
 
 .coral-siege { display: none; }
 
-@media (min-width: 1260px) and (min-aspect-ratio: 6/5) {
-  :is(.grim-home, .grim-site) { --grim-frame: clamp(870px, 63vw, 1800px); isolation: isolate; }
+@media (min-width: 760px) {
+  :is(.grim-home, .grim-site) {
+    --coral-width: clamp(86px, 17vw, 500px);
+    --grim-frame: min(1800px, calc(100% - 2 * var(--coral-width) - 16px));
+    isolation: isolate;
+  }
   :is(.grim-home, .grim-site) .wrap { width: var(--grim-frame); }
+  :is(.grim-home, .grim-site) .bar { width: min(1800px, calc(100% - 40px)); }
   .coral-siege {
     display: block;
     position: fixed;
@@ -48,7 +53,7 @@
     position: absolute;
     inset-block: 0;
     width: calc((100% - var(--grim-frame)) / 2 - 8px);
-    background: center / cover no-repeat;
+    background: center top / cover no-repeat;
   }
   .coral-siege-left {
     left: 0;
@@ -62,7 +67,11 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 980px) {
+  .grim-home .alliance-banner-copy { width: min(72%, 740px); }
+}
+
+@media (max-width: 759px) {
   .grim-home .alliance-banner {
     align-items: end;
     min-height: 560px;
