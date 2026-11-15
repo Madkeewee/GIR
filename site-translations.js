@@ -273,7 +273,8 @@ const girCatalogs = {
   "weekly crystal calculator": "calculadora de cristal semanal",
   "← Back to Planner": "← Volver al Planificador",
   "★ Backup alloy-ball carrier": "★ Portador de bolas de aleación de respaldo",
-  "★ Primary alloy-ball carrier": "★ Portador de bolas de aleación primaria"
+  "★ Primary alloy-ball carrier": "★ Portador de bolas de aleación primaria",
+  "Passes": "Pasos"
  },
  "pt": {
   " + fraction : ": "+ fração:",
@@ -548,7 +549,8 @@ const girCatalogs = {
   "weekly crystal calculator": "calculadora de cristal semanal",
   "← Back to Planner": "← Voltar ao Planejador",
   "★ Backup alloy-ball carrier": "★ Porta-bolas de liga de backup",
-  "★ Primary alloy-ball carrier": "★ Porta-bolas de liga primária"
+  "★ Primary alloy-ball carrier": "★ Porta-bolas de liga primária",
+  "Passes": "Passagens"
  },
  "fr": {
   " + fraction : ": "+ fraction :",
@@ -823,7 +825,8 @@ const girCatalogs = {
   "weekly crystal calculator": "calculateur de cristal hebdomadaire",
   "← Back to Planner": "← Retour au Planificateur",
   "★ Backup alloy-ball carrier": "★ Support de secours pour billes en alliage",
-  "★ Primary alloy-ball carrier": "★ Support de bille en alliage primaire"
+  "★ Primary alloy-ball carrier": "★ Support de bille en alliage primaire",
+  "Passes": "Cols"
  },
  "de": {
   " + fraction : ": "+ Bruch:",
@@ -1098,7 +1101,8 @@ const girCatalogs = {
   "weekly crystal calculator": "Wöchentlicher Kristallrechner",
   "← Back to Planner": "← Zurück zum Planer",
   "★ Backup alloy-ball carrier": "★ Backup-Kugelträger aus Aluminium",
-  "★ Primary alloy-ball carrier": "★ Primärer Kugelträger aus Aluminiumlegierung"
+  "★ Primary alloy-ball carrier": "★ Primärer Kugelträger aus Aluminiumlegierung",
+  "Passes": "Pässe"
  },
  "ru": {
   " + fraction : ": "+ дробь:",
@@ -1373,7 +1377,8 @@ const girCatalogs = {
   "weekly crystal calculator": "кристаллический калькулятор на неделю",
   "← Back to Planner": "← Вернуться назад на Планировщик",
   "★ Backup alloy-ball carrier": "★ Резервный держатель шариков из сплава",
-  "★ Primary alloy-ball carrier": "★ Держатель шариков из первичного сплава"
+  "★ Primary alloy-ball carrier": "★ Держатель шариков из первичного сплава",
+  "Passes": "Перевалы"
  },
  "ar": {
   " + fraction : ": "+ الكسر :",
@@ -1648,7 +1653,8 @@ const girCatalogs = {
   "weekly crystal calculator": "حاسبة الكريستال الأسبوعية",
   "← Back to Planner": "← العودة إلى المخطط",
   "★ Backup alloy-ball carrier": "★ الناقل سبيكة الكرة احتياطية",
-  "★ Primary alloy-ball carrier": "★ الناقل الأساسي للكرة المعدنية"
+  "★ Primary alloy-ball carrier": "★ الناقل الأساسي للكرة المعدنية",
+  "Passes": "الممرات"
  },
  "id": {
   " + fraction : ": "+ pecahan :",
@@ -1923,7 +1929,8 @@ const girCatalogs = {
   "weekly crystal calculator": "kalkulator kristal mingguan",
   "← Back to Planner": "← Kembali ke Perencana",
   "★ Backup alloy-ball carrier": "★ Pembawa bola paduan cadangan",
-  "★ Primary alloy-ball carrier": "★ Pembawa bola paduan primer"
+  "★ Primary alloy-ball carrier": "★ Pembawa bola paduan primer",
+  "Passes": "Jalur lintasan"
  },
  "ko": {
   " + fraction : ": "+ 분수 :",
@@ -2198,7 +2205,8 @@ const girCatalogs = {
   "weekly crystal calculator": "주간 크리스탈 계산기",
   "← Back to Planner": "← 플래너로 돌아가기",
   "★ Backup alloy-ball carrier": "★ 백업 합금구 캐리어",
-  "★ Primary alloy-ball carrier": "★ 1차 합금구 운반체"
+  "★ Primary alloy-ball carrier": "★ 1차 합금구 운반체",
+  "Passes": "통로"
  },
  "ja": {
   " + fraction : ": "+ 分数 :",
@@ -2473,7 +2481,8 @@ const girCatalogs = {
   "weekly crystal calculator": "毎週のクリスタル電卓",
   "← Back to Planner": "← プランナーに戻る",
   "★ Backup alloy-ball carrier": "★ バックアップ合金ボールキャリア",
-  "★ Primary alloy-ball carrier": "★初級合金ボールキャリア"
+  "★ Primary alloy-ball carrier": "★初級合金ボールキャリア",
+  "Passes": "峠"
  },
  "zh-Hans": {
   " + fraction : ": "+ 分数：",
@@ -2748,7 +2757,8 @@ const girCatalogs = {
   "weekly crystal calculator": "每周水晶计算器",
   "← Back to Planner": "← 返回计划表",
   "★ Backup alloy-ball carrier": "★ 备用合金滚珠架",
-  "★ Primary alloy-ball carrier": "★ 初级合金滚珠架"
+  "★ Primary alloy-ball carrier": "★ 初级合金滚珠架",
+  "Passes": "关隘"
  },
  "th": {
   " + fraction : ": "+ เศษส่วน :",
@@ -3023,7 +3033,8 @@ const girCatalogs = {
   "weekly crystal calculator": "เครื่องคิดเลขคริสตัลรายสัปดาห์",
   "← Back to Planner": "← กลับสู่การวางแผน",
   "★ Backup alloy-ball carrier": "★ผู้ให้บริการลูกโลหะผสมสำรอง",
-  "★ Primary alloy-ball carrier": "★ ผู้ให้บริการลูกโลหะผสมหลัก"
+  "★ Primary alloy-ball carrier": "★ ผู้ให้บริการลูกโลหะผสมหลัก",
+  "Passes": "ช่องเขา"
  },
  "vi": {
   " + fraction : ": "+ phân số:",
@@ -3298,7 +3309,8 @@ const girCatalogs = {
   "weekly crystal calculator": "máy tính tinh thể hàng tuần",
   "← Back to Planner": "← Quay lại Công cụ lập kế hoạch",
   "★ Backup alloy-ball carrier": "★ Giá đỡ bi hợp kim dự phòng",
-  "★ Primary alloy-ball carrier": "★ Chất mang bi hợp kim sơ cấp"
+  "★ Primary alloy-ball carrier": "★ Chất mang bi hợp kim sơ cấp",
+  "Passes": "Đèo"
  },
  "tr": {
   " + fraction : ": "+ kesir:",
@@ -3573,6 +3585,7 @@ const girCatalogs = {
   "weekly crystal calculator": "haftalık kristal hesaplayıcı",
   "← Back to Planner": "← Planlayıcı'e geri dön",
   "★ Backup alloy-ball carrier": "★ Yedek alaşımlı bilya taşıyıcı",
-  "★ Primary alloy-ball carrier": "★ Birincil alaşımlı bilya taşıyıcı"
+  "★ Primary alloy-ball carrier": "★ Birincil alaşımlı bilya taşıyıcı",
+  "Passes": "Geçitler"
  }
 };
