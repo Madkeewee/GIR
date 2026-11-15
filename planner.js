@@ -62,7 +62,7 @@ function addRosterRow({name = "", cp = "", A = false, B = false} = {}) {
   starter.addEventListener("input", () => { player.selected[team] = starter.checked; });
   remove.addEventListener("click", () => {
     const name = player.name.value.trim();
-    if (name && !window.confirm(`Remove ${name} from the roster and both teams?`)) return;
+    if (name && !window.confirm(girText`Remove ${name} from the roster and both teams?`)) return;
     const index = rows.indexOf(player);
     rows.splice(index, 1);
     row.remove();
@@ -83,13 +83,13 @@ function loadRoster() {
       return stored.players;
     }
   } catch {
-    if (storageStatus) storageStatus.textContent = "Saved roster could not be loaded.";
+    if (storageStatus) storageStatus.textContent = girText("Saved roster could not be loaded.");
   }
   return Array.from({length: 20}, () => ({A: true}));
 }
 
 function showStarterCount() {
-  if (starterCount) starterCount.textContent = `Team ${team} · ${rows.filter(row => row.selected[team]).length} / 20 starters`;
+  if (starterCount) starterCount.textContent = girText`Team ${team} · ${rows.filter(row => row.selected[team]).length} / 20 starters`;
 }
 
 function rosterChanged() {
@@ -101,7 +101,7 @@ function rosterChanged() {
     localStorage.setItem(storageKey, JSON.stringify({team, players}));
     if (storageStatus) storageStatus.textContent = "";
   } catch {
-    if (storageStatus) storageStatus.textContent = "This browser could not save the roster. Keep the page open to retain your edits.";
+    if (storageStatus) storageStatus.textContent = girText("This browser could not save the roster. Keep the page open to retain your edits.");
   }
 }
 
@@ -152,7 +152,7 @@ function card([marker, title, color], lines, summary) {
   const badge = document.createElement("span");
   badge.className = "bgb-marker";
   badge.textContent = marker;
-  heading.append(badge, title);
+  heading.append(badge, girText(title));
   const detail = document.createElement("p");
   detail.textContent = summary;
   const list = document.createElement("ul");
@@ -181,7 +181,7 @@ form.addEventListener("submit", event => {
   const names = new Set();
   const starters = rows.filter(row => row.selected[team]);
   if (starters.length !== 20) {
-    status.textContent = `Select exactly 20 starters for Team ${team}. You selected ${starters.length}.`;
+    status.textContent = girText`Select exactly 20 starters for Team ${team}. You selected ${starters.length}.`;
     return;
   }
   const players = [];
@@ -189,7 +189,7 @@ form.addEventListener("submit", event => {
     const name = row.name.value.trim();
     const cp = readPower(row.cp.value);
     if (!name || names.has(name.toLowerCase()) || !Number.isFinite(cp)) {
-      status.textContent = `Starter ${index + 1} needs a unique name and positive CP. Example: 350M.`;
+      status.textContent = girText`Starter ${index + 1} needs a unique name and positive CP. Example: 350M.`;
       (!name || names.has(name.toLowerCase()) ? row.name : row.cp).focus();
       return;
     }
@@ -198,37 +198,42 @@ form.addEventListener("submit", event => {
   }
   const {pairs, floaters} = assign(players);
   const label = player => `${player.name} (${format.format(player.cp)} CP)`;
-  const floatLines = floaters.map((player, index) => `Floater ${index + 1} · ${label(player)} — ${duties[index]}`);
+  const floatLines = floaters.map((player, index) => girText`Floater ${index + 1} · ${label(player)} — ${girText(duties[index])}`);
   const cards = pairs.map((members, index) => {
     const cp = members[0].cp + members[1].cp;
-    const timing = index < 6 ? "Hold refinery" : "Stage nearby until it opens";
+    const timing = index < 6 ? girText("Hold refinery") : girText("Stage nearby until it opens");
     return card(objectives[index], members.map(label), `${timing} · ${format.format(cp)} CP`);
   });
-  cards.push(card(["F", "Floaters", "#a3d6ff"], floatLines, "Stage near the Rare Earth Factory."));
+  cards.push(card(["F", girText("Floaters"), "#a3d6ff"], floatLines, girText("Stage near the Rare Earth Factory.")));
   document.querySelector("#squads").replaceChildren(...cards);
   message.value = [
-    `GIR BGB PLAN · Team ${team} · Lower-left start`,
+    girText`GIR BGB PLAN · Team ${team} · Lower-left start`,
     ...pairs.map((members, index) => {
       const [marker, title] = objectives[index];
-      return `${marker} | ${title}: ${members.map(label).join(", ")}`;
+      return `${marker} | ${girText(title)}: ${members.map(label).join(", ")}`;
     }),
-    "F | Floaters",
+    girText("F | Floaters"),
     ...floatLines,
-    "Hospital and Military pairs stage nearby and wait for their objectives to open. Floaters stage before alloy spawns. Floaters 3 and 4 escort the active carrier to HQ."
+    girText("Hospital and Military pairs stage nearby and wait for their objectives to open. Floaters stage before alloy spawns. Floaters 3 and 4 escort the active carrier to HQ.")
   ].join("\n");
   plan.hidden = false;
-  status.textContent = `Assigned all 20 Team ${team} starters.`;
+  status.textContent = girText`Assigned all 20 Team ${team} starters.`;
   copyStatus.textContent = "";
 });
 
 document.querySelector("#copy-plan").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(message.value);
-    copyStatus.textContent = "Copied. Paste the plan into alliance chat.";
+    copyStatus.textContent = girText("Copied. Paste the plan into alliance chat.");
   } catch {
     message.focus();
     message.select();
-    copyStatus.textContent = "Plan selected. Use your device’s Copy command.";
+    copyStatus.textContent = girText("Plan selected. Use your device’s Copy command.");
   }
 });
 
+
+document.addEventListener("gir-language-change", () => {
+  showStarterCount();
+  if (!plan.hidden) form.requestSubmit();
+});

@@ -1,4 +1,5 @@
-"use strict";
+(() => {
+  "use strict";
 
 const keys = [
   "language", "welcome", "season", "seasonNote", "tips", "tipsNote",
@@ -41,16 +42,63 @@ const allianceCopy = {
 };
 
 const select = document.querySelector("#home-language");
-const copy = document.querySelectorAll("[data-copy]");
 const storageKey = "gir-home-language";
+const ignored = "script, style, code, kbd, bdi, [data-brand], [data-copy], [lang]:not(html), output, #squads, #starter-count, #planner-status, #copy-status, #roster-storage-status";
+const originalText = new WeakMap();
+const originalAttributes = new WeakMap();
+let active = "en";
+let curated = {};
+
+window.girText = (source, ...values) => {
+  const key = typeof source === "string" ? source : source.reduce((result, part, index) =>
+    result + (index ? "ZXQ" + (index - 1) + "QXZ" : "") + part, "");
+  const localized = curated[key] ?? (typeof girCatalogs !== "undefined" ? girCatalogs[active]?.[key] : undefined) ?? key;
+  return values.length ? localized.replace(/ZXQ(\d+)QXZ/g, (_, index) => String(values[index])) : localized;
+};
+
+function translateNode(node) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    if (node.parentElement?.closest(ignored)) return;
+    const source = originalText.get(node) ?? node.data;
+    const english = source.trim();
+    if (!english) return;
+    originalText.set(node, source);
+    const translated = girText(english);
+    const value = source.replace(english, () => translated);
+    if (node.data !== value) node.data = value;
+  } else if (node.nodeType === Node.ELEMENT_NODE && !node.closest(ignored)) {
+    const attrs = originalAttributes.get(node) ?? {};
+    for (const name of ["aria-label", "alt", "placeholder", "title"]) {
+      if (!node.hasAttribute(name)) continue;
+      attrs[name] ??= node.getAttribute(name);
+      const value = girText(attrs[name]);
+      if (node.getAttribute(name) !== value) node.setAttribute(name, value);
+    }
+    originalAttributes.set(node, attrs);
+  }
+}
+
+function translateTree(root) {
+  translateNode(root);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+  while (walker.nextNode()) translateNode(walker.currentNode);
+}
 
 function showLanguage(language) {
-  const values = [...translations[language], ...allianceCopy[language]];
-  const strings = Object.fromEntries([...keys, ...allianceKeys].map((key, i) => [key, values[i]]));
+  active = language;
+  const english = [...translations.en, ...allianceCopy.en];
+  const selected = [...translations[language], ...allianceCopy[language]];
+  curated = Object.fromEntries(english.map((source, index) => [source, selected[index]]).filter(([source]) => source));
+  const strings = Object.fromEntries([...keys, ...allianceKeys].map((key, index) => [key, selected[index]]));
   document.documentElement.lang = language;
   document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   select.value = language;
-  copy.forEach(node => { node.textContent = strings[node.dataset.copy]; });
+  document.querySelectorAll("[data-copy]").forEach(node => {
+    const value = strings[node.dataset.copy];
+    if (value !== undefined) node.textContent = value;
+  });
+  translateTree(document.documentElement);
+  document.dispatchEvent(new Event("gir-language-change"));
 }
 
 function browserLanguage() {
@@ -62,6 +110,7 @@ function browserLanguage() {
   return "en";
 }
 
+if (!select) return;
 let initialLanguage = browserLanguage();
 try {
   const saved = localStorage.getItem(storageKey);
@@ -70,9 +119,13 @@ try {
   // The selector works without browser storage.
 }
 showLanguage(initialLanguage);
+new MutationObserver(records => {
+  for (const record of records) {
+    for (const node of record.addedNodes) translateTree(node);
+  }
+}).observe(document.body, {childList: true, subtree: true});
 select.addEventListener("change", () => {
   showLanguage(select.value);
   try { localStorage.setItem(storageKey, select.value); } catch {}
 });
-
-
+})();

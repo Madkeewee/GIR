@@ -36,14 +36,14 @@ const calculators = [
         if (!row.trim()) continue;
         const cells = row.split(",").map(cell => cell.trim());
         if (cells.length !== 6 || cells.some(cell => !/^\d+$/.test(cell) || Number(cell) > 1e12)) {
-          throw new Error(`Line ${index + 1} needs six comma-separated whole numbers from 0 to 1 trillion.`);
+          throw new Error(girText`Line ${index + 1} needs six comma-separated whole numbers from 0 to 1 trillion.`);
         }
         cells.forEach((cell, column) => { totals[column] += Number(cell); });
       }
       const [wood, iron, electricity, coin, badges] = totals.map((total, column) =>
         column < 4 ? Math.ceil(total * (100 - discount) / 100) : total);
       const time = Math.ceil(totals[5] * 100 / (100 + speed));
-      return `Estimated cost: ${amount(wood)} wood · ${amount(iron)} iron · ${amount(electricity)} electricity · ${amount(coin)} coin · ${amount(badges)} badges\nTime: ${duration(time)} · After speedups: ${duration(Math.max(0, time - speedups))}`;
+      return girText`Estimated cost: ${amount(wood)} wood · ${amount(iron)} iron · ${amount(electricity)} electricity · ${amount(coin)} coin · ${amount(badges)} badges\nTime: ${duration(time)} · After speedups: ${duration(Math.max(0, time - speedups))}`;
     }
   },
   {
@@ -55,9 +55,9 @@ const calculators = [
     ],
     calculate({owned, target, rate}) {
       const remaining = Math.max(0, target - owned);
-      if (!remaining) return "Target reached.";
-      if (!rate) return `${amount(remaining)} still needed. Add a positive rate for an ETA.`;
-      return `${amount(remaining)} still needed · ETA ${duration(remaining * 60 / rate)}`;
+      if (!remaining) return girText("Target reached.");
+      if (!rate) return girText`${amount(remaining)} still needed. Add a positive rate for an ETA.`;
+      return girText`${amount(remaining)} still needed · ETA ${duration(remaining * 60 / rate)}`;
     }
   },
   {
@@ -72,7 +72,7 @@ const calculators = [
       const total = BigInt(regularCount) * BigInt(regularPayout)
         + BigInt(boostedCount) * BigInt(boostedPayout)
         + BigInt(passCount) * BigInt(passPayout);
-      return `${amount(total)} estimated crystals at settlement.`;
+      return girText`${amount(total)} estimated crystals at settlement.`;
     }
   },
   {
@@ -83,7 +83,7 @@ const calculators = [
       field("full", "Full capture time (minutes)", {min: 0.1, step: 0.1, value: 30})
     ],
     calculate({progress, full}) {
-      return `About ${duration(full * (100 - progress) / 100)} of further uninterrupted control.`;
+      return girText`About ${duration(full * (100 - progress) / 100)} of further uninterrupted control.`;
     }
   },
   {
@@ -96,7 +96,7 @@ const calculators = [
     ],
     calculate({one, five, sixty, extra, timer}) {
       const total = one + five * 5 + sixty * 60 + extra;
-      return `Speedups available: ${duration(total)} · Still needed: ${duration(Math.max(0, timer - total))}`;
+      return girText`Speedups available: ${duration(total)} · Still needed: ${duration(Math.max(0, timer - total))}`;
     }
   }
 ];
@@ -146,13 +146,14 @@ function createCalculator({title, description, fields, calculate}) {
     }));
     try {
       if (typeof values.rows === "string" && !values.rows.trim()) {
-        throw new Error("Enter at least one research step.");
+        throw new Error(girText("Enter at least one research step."));
       }
       output.textContent = calculate(values);
     } catch (error) {
       output.textContent = error.message;
     }
   });
+  document.addEventListener("gir-language-change", () => { if (output.textContent) form.requestSubmit(); });
   return form;
 }
 
